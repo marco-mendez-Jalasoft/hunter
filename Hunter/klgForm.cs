@@ -87,7 +87,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                controlLocatorType = "AutomationId";
+                controlLocatorType = "AccessibilityId";
             }
 
             return controlLocatorType;
@@ -106,6 +106,11 @@ namespace WindowsFormsApplication1
                 app.Kill();
             }
             catch { }
+        }
+
+        private void close_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
