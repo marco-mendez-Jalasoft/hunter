@@ -1,7 +1,12 @@
 ﻿using KeyloggerExample;
+using Microsoft.TeamFoundation.Framework.Common;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Windows;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -71,6 +76,8 @@ namespace WindowsFormsApplication1
             element.AppendLine("\n").AppendLine("\n");
             showElementsTxt.Text += element.ToString();
 
+            AppTxt.Text = controlName;
+
         }
 
         private static string GetLocatorType(string controlName, ref string controlAutomationId)
@@ -80,7 +87,7 @@ namespace WindowsFormsApplication1
             {
                 controlAutomationId = controlName;
                 controlLocatorType = "Name";
-                if(string.IsNullOrEmpty(controlName))
+                if (string.IsNullOrEmpty(controlName))
                 {
                     controlLocatorType = "...";
                 }
@@ -111,6 +118,61 @@ namespace WindowsFormsApplication1
         private void close_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WinAppDriverManager();
+            StartFromProcess(AppTxt.Text);
+            var aux = _winAppDriver.PageSource;
+            resourcesTxt.Clear();
+            resourcesTxt.Text = aux;
+        }
+
+        private WindowsDriver<WindowsElement> _winAppDriver;
+        private AppiumOptions _winAppCapabilities;
+        private TimeSpan _explicitWait;
+        private TimeSpan _implicitWait;
+        private Uri _driverUri;
+
+        private void WinAppDriverManager()
+        {
+            _implicitWait = TimeSpan.FromSeconds(20);
+            _explicitWait = TimeSpan.FromSeconds(20);
+            string winPort = File.ReadAllText("winPort.txt", Encoding.UTF8);
+            _driverUri = new Uri(winPort);
+        }
+
+        public void StartFromProcess(string windowTitle)
+        {
+            SwitchToWindow(windowTitle);
+        }
+
+        public void SwitchToWindow(string windowTitle)
+        {
+            string windowHandle = GetWindowHandle(windowTitle);
+            SwitchToWindowByWindowHandle(windowHandle);
+        }
+
+        public string GetWindowHandle(string windowTitle)
+        {
+            string windowHandle = GetWindowHandleByWindowTitle(windowTitle);
+            return windowHandle;
+        }
+
+        public void SwitchToWindowByWindowHandle(string windowHandle)
+        {
+            _winAppCapabilities = new AppiumOptions();
+            _winAppCapabilities.AddAdditionalCapability("platformName", "Windows");
+            _winAppCapabilities.AddAdditionalCapability("appTopLevelWindow", windowHandle);
+            _winAppDriver = new WindowsDriver<WindowsElement>(_driverUri, _winAppCapabilities);
+            _winAppDriver.Manage().Timeouts().ImplicitWait = _implicitWait;
+        }
+
+        private string GetWindowHandleByWindowTitle(string windowTitle)
+        {
+            var process = Process.GetProcesses().Where(p => p.MainWindowTitle.Contains(windowTitle)).FirstOrDefault();
+            return process != null ? process.MainWindowHandle.ToString("X4") : string.Empty;
         }
     }
 }

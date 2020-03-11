@@ -34,8 +34,10 @@ namespace WindowsFormsApplication1
             this.resourcesTxt = new System.Windows.Forms.TextBox();
             this.CleanBtn = new System.Windows.Forms.Button();
             this.showElementsTxt = new System.Windows.Forms.TextBox();
-            this.keylogger1 = new n7aKeylogger.Keylogger();
             this.close = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.keylogger1 = new n7aKeylogger.Keylogger();
+            this.AppTxt = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // cbKeyloggerEnabled
@@ -84,12 +86,6 @@ namespace WindowsFormsApplication1
             this.showElementsTxt.Size = new System.Drawing.Size(499, 369);
             this.showElementsTxt.TabIndex = 17;
             // 
-            // keylogger1
-            // 
-            this.keylogger1.Enabled = false;
-            this.keylogger1.Keylogger_Mode = n7aKeylogger.Keylogger.Keylogger_Modes.Hooks;
-            this.keylogger1.VKCodeAsStringDown += new n7aKeylogger.Keylogger.ValueChangedEventHandler(this.keylogger1_VKCodeAsStringDown);
-            // 
             // close
             // 
             this.close.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -101,11 +97,37 @@ namespace WindowsFormsApplication1
             this.close.UseVisualStyleBackColor = true;
             this.close.Click += new System.EventHandler(this.close_Click);
             // 
+            // button1
+            // 
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Location = new System.Drawing.Point(12, 143);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(118, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "XML";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // keylogger1
+            // 
+            this.keylogger1.Enabled = false;
+            this.keylogger1.Keylogger_Mode = n7aKeylogger.Keylogger.Keylogger_Modes.Hooks;
+            this.keylogger1.VKCodeAsStringDown += new n7aKeylogger.Keylogger.ValueChangedEventHandler(this.keylogger1_VKCodeAsStringDown);
+            // 
+            // AppTxt
+            // 
+            this.AppTxt.Location = new System.Drawing.Point(12, 117);
+            this.AppTxt.Name = "AppTxt";
+            this.AppTxt.Size = new System.Drawing.Size(118, 20);
+            this.AppTxt.TabIndex = 20;
+            // 
             // klgForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(872, 393);
+            this.Controls.Add(this.AppTxt);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.close);
             this.Controls.Add(this.showElementsTxt);
             this.Controls.Add(this.CleanBtn);
@@ -128,6 +150,8 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.Button CleanBtn;
         private System.Windows.Forms.TextBox showElementsTxt;
         private System.Windows.Forms.Button close;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox AppTxt;
     }
 }
 
