@@ -7,7 +7,6 @@ namespace KeyloggerExample
 {
     public static class CreateElement
     {
-
         public static string GetControlName(this string resouse)
         {
             return FindTagValue(resouse, "Name");
@@ -31,6 +30,42 @@ namespace KeyloggerExample
                 return string.Empty;
             }
 
+        }
+
+        public static string BuildElement(string resources)
+        {
+            string controlName = resources.GetControlName();
+            string controlType = resources.GetControlType();
+            string controlAutomationId = resources.GetControlAutomationId();
+            string controlLocatorType = "...";
+            controlLocatorType = GetLocatorType(controlName, ref controlAutomationId);
+
+            StringBuilder element = new StringBuilder();
+            element.AppendLine($"[Element(\"{controlName}\", ElementType.{controlType})]");
+            element.AppendLine($"[Locator(PlatformType.Desktop, LocatorType.{controlLocatorType}, \"{controlAutomationId}\")]");
+            element.Append($"public I{controlType} {controlName.Replace(" ", string.Empty)}").Append("{ get; }");
+            element.AppendLine("\n").AppendLine("\n");
+            return element.ToString();
+        }
+
+        private static string GetLocatorType(string controlName, ref string controlAutomationId)
+        {
+            string controlLocatorType;
+            if (string.IsNullOrEmpty(controlAutomationId))
+            {
+                controlAutomationId = controlName;
+                controlLocatorType = "Name";
+                if (string.IsNullOrEmpty(controlName))
+                {
+                    controlLocatorType = "...";
+                }
+            }
+            else
+            {
+                controlLocatorType = "AccessibilityId";
+            }
+
+            return controlLocatorType;
         }
 
         private static Dictionary<string, string> LoadDictionary()

@@ -54,13 +54,14 @@ namespace WindowsFormsApplication1
             // resourcesTxt
             // 
             this.resourcesTxt.AllowDrop = true;
-            this.resourcesTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.resourcesTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.resourcesTxt.Location = new System.Drawing.Point(641, 10);
+            this.resourcesTxt.Location = new System.Drawing.Point(774, 10);
             this.resourcesTxt.Multiline = true;
             this.resourcesTxt.Name = "resourcesTxt";
             this.resourcesTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.resourcesTxt.Size = new System.Drawing.Size(219, 371);
+            this.resourcesTxt.Size = new System.Drawing.Size(219, 424);
             this.resourcesTxt.TabIndex = 14;
             // 
             // CleanBtn
@@ -76,14 +77,13 @@ namespace WindowsFormsApplication1
             // 
             // showElementsTxt
             // 
-            this.showElementsTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.showElementsTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.showElementsTxt.Location = new System.Drawing.Point(136, 12);
             this.showElementsTxt.Multiline = true;
             this.showElementsTxt.Name = "showElementsTxt";
             this.showElementsTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.showElementsTxt.Size = new System.Drawing.Size(499, 369);
+            this.showElementsTxt.Size = new System.Drawing.Size(632, 422);
             this.showElementsTxt.TabIndex = 17;
             // 
             // close
@@ -125,7 +125,7 @@ namespace WindowsFormsApplication1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(872, 393);
+            this.ClientSize = new System.Drawing.Size(1005, 446);
             this.Controls.Add(this.AppTxt);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.close);

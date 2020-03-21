@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppXML.cs" />
     <Compile Include="CreateElement.cs" />
     <Compile Include="Keylogger.cs">
       <SubType>Component</SubType>
@@ -137,6 +138,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <Content Include="KeyWord.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="winPort.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
