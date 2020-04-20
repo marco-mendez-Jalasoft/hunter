@@ -20,7 +20,7 @@ namespace KeyloggerExample
         {
             try
             {
-                string locatorType = "";
+                string locatorType = string.Empty;
                 string control = FindTagValue(resouse, "LocalizedControlType").ToUpper();
                 LoadDictionary().TryGetValue(control, out locatorType);
                 return locatorType; 
@@ -29,7 +29,6 @@ namespace KeyloggerExample
             {
                 return string.Empty;
             }
-
         }
 
         public static string BuildElement(string resources)
@@ -37,8 +36,7 @@ namespace KeyloggerExample
             string controlName = resources.GetControlName();
             string controlType = resources.GetControlType();
             string controlAutomationId = resources.GetControlAutomationId();
-            string controlLocatorType = "...";
-            controlLocatorType = GetLocatorType(controlName, ref controlAutomationId);
+            string controlLocatorType = GetLocatorType(controlName, ref controlAutomationId);
 
             StringBuilder element = new StringBuilder();
             element.AppendLine($"[Element(\"{controlName}\", ElementType.{controlType})]");
@@ -89,7 +87,7 @@ namespace KeyloggerExample
 
         private static string CleanSpaces(this string cad)
         {
-            return cad.TrimEnd().TrimStart().Replace("\"", "");
+            return cad.TrimEnd().TrimStart().Replace("\"", string.Empty);
         }
     }
 }

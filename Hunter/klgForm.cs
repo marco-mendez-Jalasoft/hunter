@@ -1,13 +1,15 @@
 ﻿using Hunter;
 using KeyloggerExample;
 using System;
+using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+/// <summary>
+/// Develop by Marco Mendez
+/// </summary>
 namespace WindowsFormsApplication1
 {
     public partial class klgForm : Form
@@ -16,7 +18,7 @@ namespace WindowsFormsApplication1
         static extern int SetForegroundWindow(IntPtr point);
         Process app = null;
         IntPtr h;
-        string keyWord = File.ReadAllText("KeyWord.txt", Encoding.UTF8);
+        string keyWord = ConfigurationManager.AppSettings["KeyWord"];
 
         public klgForm()
         {
@@ -30,7 +32,7 @@ namespace WindowsFormsApplication1
 
         private void klgForm_Load(object sender, EventArgs e)
         {
-            string inspect = File.ReadAllText("App.txt", Encoding.UTF8);
+            string inspect = ConfigurationManager.AppSettings["Inspect"];
             app = Process.Start(inspect);
             Thread.Sleep(2000);
             app.WaitForInputIdle();
@@ -42,27 +44,28 @@ namespace WindowsFormsApplication1
         {
             if (value.ToUpper() == keyWord.ToUpper())
             {
-                resourcesTxt.Clear();
+                txtResources.Clear();
                 SetForegroundWindow(h);
                 SendKeys.Send("^+4");
-                resourcesTxt.Paste();
-                showElementsTxt.Text += CreateElement.BuildElement(resourcesTxt.Text.ToString());
-                AppTxt.Text = CreateElement.GetControlName(resourcesTxt.Text.ToString());
+                txtResources.Paste();
+                txtElements.Text += CreateElement.BuildElement(txtResources.Text.ToString());
+                txtAppName.Text = CreateElement.GetControlName(txtResources.Text.ToString());
             }
         }
 
         private void CleanBtn_Click(object sender, EventArgs e)
         {
-            showElementsTxt.Clear();
-            resourcesTxt.Clear();
+            txtElements.Clear();
+            txtResources.Clear();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AppXML appXML = new AppXML();
-            appXML.StartFromProcess(AppTxt.Text);
-            resourcesTxt.Clear();
-            resourcesTxt.Text = appXML.WinAppDriver.PageSource;
+            WinApp appXML = new WinApp();
+            appXML.SwitchToWindow(txtAppName.Text);
+
+            txtResources.Clear();
+            txtResources.Text = appXML.GetPageSource();
         }
 
         private void close_Click(object sender, EventArgs e)

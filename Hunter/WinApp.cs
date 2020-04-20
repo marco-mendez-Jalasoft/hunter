@@ -1,35 +1,26 @@
 ﻿using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hunter
 {
-    public class AppXML
+    public class WinApp
     {
-        public WindowsDriver<WindowsElement> WinAppDriver;
+        private WindowsDriver<WindowsElement> WinAppDriver;
         private AppiumOptions _winAppCapabilities;
         private TimeSpan _explicitWait;
         private TimeSpan _implicitWait;
         private Uri _driverUri;
 
-        public AppXML()
+        public WinApp()
         {
             _implicitWait = TimeSpan.FromSeconds(20);
             _explicitWait = TimeSpan.FromSeconds(20);
-            string winPort = File.ReadAllText("winPort.txt", Encoding.UTF8);
+            string winPort = ConfigurationManager.AppSettings["WinAppDriver"];
             _driverUri = new Uri(winPort);
-        }
-
-         
-        public void StartFromProcess(string windowTitle)
-        {
-            SwitchToWindow(windowTitle);
         }
 
         public void SwitchToWindow(string windowTitle)
@@ -38,13 +29,18 @@ namespace Hunter
             SwitchToWindowByWindowHandle(windowHandle);
         }
 
-        public string GetWindowHandle(string windowTitle)
+        public string GetPageSource()
+        {
+            return WinAppDriver.PageSource;
+        }
+
+        private string GetWindowHandle(string windowTitle)
         {
             string windowHandle = GetWindowHandleByWindowTitle(windowTitle);
             return windowHandle;
         }
 
-        public void SwitchToWindowByWindowHandle(string windowHandle)
+        private void SwitchToWindowByWindowHandle(string windowHandle)
         {
             _winAppCapabilities = new AppiumOptions();
             _winAppCapabilities.AddAdditionalCapability("platformName", "Windows");
